@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carta para ti</title>
+  <style>
+    html, body {
+      background-color: #fbe8e7;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    .objeto {
+      position: fixed;
+      top: 100vh;
+      font-size: 20px;
+      opacity: 0.8;
+      animation: flotar 6s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes flotar {
+      0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .contenido {
+      position: relative;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    .carta {
+      max-width: 600px;
+      background-color: #fff;
+      border: 2px solid #e91e63;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      margin: 80px auto;
+    }
+
+    .mensaje {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 1s ease;
+      font-size: 14px;
+      color: #e91e63;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+
+    .carta.abierta .mensaje {
+      opacity: 1;
+      max-height: none;
+      margin-top: 10px;
+    }
+
+    .carta::before {
+      content: "💌 Haz clic para abrir";
+      font-size: 18px;
+      font-weight: bold;
+      color: #e91e63;
+      display: block;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 10px 0;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    const simbolos = ["❤️", "💗", "🌼", "🌸", "🌷", "💐", "🩷"];
+    function crearElemento() {
+      const el = document.createElement("div");
+      el.classList.add("objeto");
+      el.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.fontSize = (16 + Math.random() * 20) + "px";
+      el.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 6000);
+    }
+    setInterval(crearElemento, 250);
+  </script>
+
+  <div class="contenido">
+    <div class="carta" onclick="abrirCarta()">
+      <div class="mensaje">
+Para la mejor novia del mundo
+
+La primera vez que te vi dije, es hermosa, me gustaste altiro, me encantaste desde el primer momento, pero dije: no creo que se fije en mí, después me acuerdo un día que sin querer en matemáticas cuando te paraste pusiste tu mano encima de la mía y como creí que fue sin querer no hice nada pero me gustó, como que me hizo feliz pensar que había algo más detrás, pero en el fondo seguía creyendo que no te fijarías en mí.
+
+Luego fue donde nos dijimos que nos gustábamos, y de verdad que estaba feliz. Pasé toda la semana de que llegaba al depa y me ponía a reír solo, incluso aún lo hago cuando te recuerdo. Me haces muy feliz de verdad. No pasa un día desde que nos conocimos que no pienso en ti. Me acuesto pensando en ti, me despierto pensando en ti. No imagino un día sin ti.
+
+No sabes lo mucho que te extraño ahora mismo y no poder estar ahí contigo, pero te prometo que cuando nos volvamos a ver te daré todo el amor que no te di en los días que no nos vimos. Te amo demasiado, es la primera vez que siento tanto por alguien. Es como una necesidad, como cuando tienes ganas de ir al baño, pero de querer estar contigo todo el tiempo, y no se va hasta el momento de estar contigo.
+
+Incluso a veces cuando no estamos juntos pero hacemos una llamada, ya con solo una llamada me siento feliz, literal me anima al instante. De verdad que no me imagino una vida sin usted, la quiero pasar toda con usted, darle regalitos, darle salidas sorpresas, y muchas más cosas que si las anoto no termino nunca.
+
+La amo de verdad con todo mi corazón, gracias por existir y gracias por darme la oportunidad de ser su novio, me ha hecho el hombre más feliz del mundo.
+
+TE AMO CON TODO MI CORAZÓN MI PRINCESA HERMOSA 💗
+
+        <img src="foto.jpeg" alt="Foto final">
+      </div>
+    </div>
+  </div>
+
+  <audio id="miMusica" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio HTML5.
+  </audio>
+
+  <script>
+    function abrirCarta() {
+      const carta = document.querySelector('.carta');
+      carta.classList.toggle('abierta');
+
+      if (carta.classList.contains('abierta')) {
+        const musica = document.getElementById('miMusica');
+        musica.play().catch(e => {
+          console.log("El navegador bloqueó el audio hasta que se interactúe con la página.");
+        });
+      }
+    }
+  </script>
+</body>
+</html>
